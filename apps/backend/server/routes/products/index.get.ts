@@ -7,5 +7,5 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Products not found' });
   }
 
-  return products;
+  return {products};
 });
