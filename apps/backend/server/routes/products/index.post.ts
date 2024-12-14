@@ -1,15 +1,16 @@
 import { z } from 'zod';
-import { defineEventHandler, readBody } from 'h3';
+import { readBody } from 'h3';
 import { db } from '~~/src/db';
 import { product } from '~~/src/db/schema';
 
+const schema = z.array(
+  z.object({
+    name: z.string(),
+    quantity: z.number().min(1),
+  })
+);
 
-const schema = z.array(z.object({
-  name: z.string(),
-  quantity: z.number().min(1)
-}));
-
-export default defineEventHandler(async (event) => {
+export default eventHandler(async event => {
   const body = await readBody(event);
 
   const result = schema.safeParse(body);
@@ -22,9 +23,14 @@ export default defineEventHandler(async (event) => {
 
   const products = result.data;
 
-  await db.insert(product).values(products.map(({ name, quantity }) => ({ name, quantity })));
+  await db.insert(product).values(
+    products.map(({ name, quantity }) => ({
+      name,
+      quantity,
+    }))
+  );
 
   return {
-    statusCode: 201
+    statusCode: 201,
   };
 });
