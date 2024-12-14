@@ -5,7 +5,8 @@ import { product } from '~~/src/db/schema';
 
 
 const schema = z.array(z.object({
-  name: z.string()
+  name: z.string(),
+  quantity: z.number().min(1)
 }));
 
 export default defineEventHandler(async (event) => {
@@ -19,9 +20,9 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  const productNames = result.data;
+  const products = result.data;
 
-  await db.insert(product).values(productNames.map(({ name }) => ({ name })));
+  await db.insert(product).values(products.map(({ name, quantity }) => ({ name, quantity })));
 
   return {
     statusCode: 201
