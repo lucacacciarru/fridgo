@@ -26,7 +26,6 @@ export default defineEventHandler(async (event) => {
     model: openai("gpt-4o"),
     schema: z.object({
       products: z.array(z.object({
-        id: z.string().uuid(),
         name: z.string(),
         quantity: z.number().min(1)
       }))
