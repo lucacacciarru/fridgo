@@ -24,7 +24,7 @@ export default async function Page() {
                     <CardContent className="p-2">
                     <span className="text-md font-medium">Ingredienti:</span>
                       <div className="p-4">
-                      <ul className="list-disc">
+                      <ul className="list-disc space-y-1">
                       {recipe.products.map((product, index) => (
                         <li key={index}>{product}</li>
                       ))}
@@ -38,7 +38,7 @@ export default async function Page() {
                   <Card className="flex-grow">
                     <CardContent className="p-2">
                       <span className="text-md font-medium">Passaggi:</span>
-                      <ol className="list-decimal ml-5 mb-2">
+                      <ol className="list-decimal ml-5 mb-2 space-y-1">
                         {recipe.steps.map((step, index) => (
                           <li key={index}>{step}</li>
                         ))}
