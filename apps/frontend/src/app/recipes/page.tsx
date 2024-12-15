@@ -26,8 +26,8 @@ export default async function Page() {
                 <div className="flex gap-4">
                 
                   <Card>
-                    <CardContent className="p-0">
-                    <span className="text-md font-medium p-4">Ingredienti:</span>
+                    <CardContent className="p-2">
+                    <span className="text-md font-medium">Ingredienti:</span>
                       <div className="p-4">
                       <ul className="list-disc">
                       {recipe.products.map((product, index) => (
@@ -41,7 +41,7 @@ export default async function Page() {
                   </Card>
 
                   <Card className="flex-grow">
-                    <CardContent className="p-4">
+                    <CardContent className="p-2">
                       <span className="text-md font-medium">Passaggi:</span>
                       <ol className="list-decimal ml-5 mb-2">
                         {recipe.steps.map((step, index) => (
