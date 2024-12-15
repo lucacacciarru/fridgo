@@ -4,6 +4,7 @@ import { getRecipes } from '@/api/getRecipes';
 import { Card, CardContent } from '@/components/ui/card';
 import type { Recipe } from '@/types/recipe';
 import { useEffect, useState } from 'react';
+import { Skeleton } from './ui/skeleton';
 
 export default function RecipesList() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -21,6 +22,22 @@ export default function RecipesList() {
 
     fetchRecipes();
   }, []);
+
+  if(recipes.length === 0){
+    return (
+      <div className="flex flex-col space-y-3 mx-auto max-w-7xl">
+        <h1 className="text-3xl font-bold mb-6 text-[#333333]">
+        Generazione ricette...
+      </h1>
+        <Skeleton className="h-96 w-full rounded-xl bg-gray-400" />
+        <Skeleton className="h-96 w-full rounded-xl bg-gray-400" />
+        <Skeleton className="h-96 w-full rounded-xl bg-gray-400" />
+        <Skeleton className="h-96 w-full rounded-xl bg-gray-400" />
+      </div>
+    )
+
+    
+  }
 
   return (
     <div className="max-w-7xl mx-auto">
