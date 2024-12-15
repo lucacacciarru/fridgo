@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from './ui/button';
 import {
-  DrawerTrigger,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
@@ -16,6 +15,8 @@ import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { Label } from '@radix-ui/react-label';
 import { Input } from './ui/input';
+import { deleteProduct } from '@/api/deleteProduct';
+import { useRouter } from 'next/navigation';
 type Props = {
   product: Product;
   isOpen: boolean;
@@ -34,6 +35,7 @@ export const ProductDetailsDrawer = ({
   isOpen,
   setIsOpen,
 }: Props) => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<
     z.infer<typeof schema>
   >({
@@ -48,6 +50,12 @@ export const ProductDetailsDrawer = ({
     console.log('update');
   };
 
+  const handleDelete = async () => {
+    await deleteProduct(product.id);
+    setIsOpen(false);
+    router.refresh();
+  };
+
   return (
     <Drawer
       open={isOpen}
@@ -55,10 +63,10 @@ export const ProductDetailsDrawer = ({
       <DrawerContent className="max-w-screen-lg px-8 m-auto">
         <DrawerHeader>
           <DrawerTitle>
-            Are you absolutely sure?
+            Modifica il tuo prodotto
           </DrawerTitle>
           <DrawerDescription>
-            This action cannot be undone.
+            Puoi modificare le informationi del tuo profilo
           </DrawerDescription>
         </DrawerHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +74,7 @@ export const ProductDetailsDrawer = ({
             <Label
               htmlFor="name"
               className="text-sm font-medium text-[#333333]">
-              Product Name
+              Nome
             </Label>
             <Input
               id="name"
@@ -78,7 +86,7 @@ export const ProductDetailsDrawer = ({
             <Label
               htmlFor="quantity"
               className="text-sm font-medium text-[#333333]">
-              Quantity
+              Quantità
             </Label>
             <Input
               id="quantity"
@@ -90,13 +98,21 @@ export const ProductDetailsDrawer = ({
           <Button
             type="submit"
             className="w-full bg-[#0D99FF] hover:bg-[#0B87E0] text-white">
-            Update Product
+            Aggiorno prodotto
           </Button>
         </form>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant="outline">Cancel</Button>
+        <DrawerFooter className="p-0 pt-4">
+          <Button
+            onClick={handleDelete}
+            variant="destructive">
+            Delete Product
+          </Button>
+          <DrawerClose asChild>
+            <Button
+              onClick={() => setIsOpen(false)}
+              variant="outline">
+              Cancel
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

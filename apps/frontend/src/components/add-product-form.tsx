@@ -27,10 +27,13 @@ export default function AddProductForm() {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    await createProduct({
-      name: formData.name,
-      quantity: parseInt(formData.quantity),
-    });
+    await createProduct([
+      {
+        name: formData.name,
+        quantity: parseInt(formData.quantity),
+      },
+    ]);
+
     refresh();
   };
 

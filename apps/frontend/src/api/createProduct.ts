@@ -3,14 +3,14 @@ import { ofetch } from 'ofetch';
 type CreateProductPayload = {
   name: string;
   quantity: number;
-};
+}[];
 
 export async function createProduct(
-  product: CreateProductPayload
+  products: CreateProductPayload
 ) {
   return await ofetch('http://localhost:3000/products', {
     method: 'POST',
-    body: [product],
+    body: products,
     headers: {
       'Content-Type': 'application/json',
     },

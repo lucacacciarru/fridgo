@@ -3,14 +3,39 @@
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Button } from '@/components/ui/button';
+import { analyzeReceipt } from '@/api/analyzeReceipt';
 import Image from 'next/image';
 
-export default function AddProductByPhoto() {
-  const [image, setImage] = useState<File | null>(null);
+type Props = {
+  setIsConfirmReceiptDrawer: (open: boolean) => void;
+  setIsDrawerOpen: (open: boolean) => void;
+};
+export default function AddProductByPhoto({
+  setIsConfirmReceiptDrawer,
+  setIsDrawerOpen,
+}: Props) {
+  const [base64Image, setBase64Image] = useState<
+    string | null
+  >(null);
+
+  const [imagePreview, setImagePreview] = useState<
+    string | null
+  >(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length > 0) {
-      setImage(acceptedFiles[0]);
+    const file = acceptedFiles[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          setBase64Image(reader.result.split(',')[1]);
+          setImagePreview(reader.result as string);
+        }
+      };
+      reader.onerror = () => {
+        console.error('Error reading file');
+      };
+      reader.readAsDataURL(file);
     }
   }, []);
 
@@ -21,12 +46,17 @@ export default function AddProductByPhoto() {
       multiple: false,
     });
 
-  const handleSubmit = (
+  const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     // Handle form submission here
-    console.log('Photo submitted', image);
+    const data = await analyzeReceipt({
+      imageAsBase64: base64Image!,
+    });
+    localStorage.setItem('products', JSON.stringify(data));
+    setIsDrawerOpen(false);
+    setIsConfirmReceiptDrawer(true);
   };
 
   return (
@@ -42,10 +72,10 @@ export default function AddProductByPhoto() {
               : 'border-[#E5E5E5] hover:border-[#0D99FF] hover:bg-[#F5F5F5]'
           }`}>
           <input {...getInputProps()} />
-          {image ? (
+          {imagePreview ? (
             <div className="relative w-full h-48">
               <Image
-                src={URL.createObjectURL(image)}
+                src={imagePreview}
                 alt="Uploaded product"
                 layout="fill"
                 objectFit="contain"
@@ -57,7 +87,7 @@ export default function AddProductByPhoto() {
             </p>
           ) : (
             <p className="text-[#666666]">
-              Drag 'n' drop a product image here, or click
+              Drag and drop a product image here, or click
               to select one
             </p>
           )}
@@ -66,7 +96,7 @@ export default function AddProductByPhoto() {
       <Button
         type="submit"
         className="w-full bg-[#0D99FF] hover:bg-[#0B87E0] text-white"
-        disabled={!image}>
+        disabled={!base64Image}>
         Add Product by Photo
       </Button>
     </form>

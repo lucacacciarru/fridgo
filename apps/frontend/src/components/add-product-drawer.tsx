@@ -20,11 +20,13 @@ import {
 type Props = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: (open: boolean) => void;
+  setIsConfirmReceiptDrawer: (open: boolean) => void;
 };
 
 export const AddProductDrawer = ({
   isDrawerOpen,
   setIsDrawerOpen,
+  setIsConfirmReceiptDrawer,
 }: Props) => {
   return (
     <Drawer
@@ -51,7 +53,12 @@ export const AddProductDrawer = ({
             <AddProductForm />
           </TabsContent>
           <TabsContent value="photo">
-            <AddProductByPhoto />
+            <AddProductByPhoto
+              setIsDrawerOpen={setIsDrawerOpen}
+              setIsConfirmReceiptDrawer={
+                setIsConfirmReceiptDrawer
+              }
+            />
           </TabsContent>
         </Tabs>
         <DrawerFooter>

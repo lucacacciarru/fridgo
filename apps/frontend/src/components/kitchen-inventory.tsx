@@ -7,6 +7,7 @@ import { Product } from '@/types/product';
 import { AddProductDrawer } from './add-product-drawer';
 import { ProductCard } from './product-card';
 import { ProductDetailsDrawer } from './product-details-drawer';
+import { ConfirmReceiptDrawer } from './confirm-receipt-drawer';
 
 type Props = {
   products: Product[];
@@ -20,6 +21,11 @@ export default function KitchenInventory({
     useState(false);
   const [selectedProduct, setSelectedProduct] =
     useState<Product>(products[0]);
+
+  const [
+    isConfirmReceiptDrawer,
+    setIsConfirmReceiptDrawer,
+  ] = useState(false);
 
   function handleProductClick(product: Product) {
     setSelectedProduct(product);
@@ -47,11 +53,18 @@ export default function KitchenInventory({
       <AddProductDrawer
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
+        setIsConfirmReceiptDrawer={
+          setIsConfirmReceiptDrawer
+        }
       />
       <ProductDetailsDrawer
         isOpen={isDetailsDrawerOpen}
         setIsOpen={setIsDetailsDrawerOpen}
         product={selectedProduct as Product}
+      />
+      <ConfirmReceiptDrawer
+        isOpen={isConfirmReceiptDrawer}
+        setIsOpen={setIsConfirmReceiptDrawer}
       />
     </div>
   );
