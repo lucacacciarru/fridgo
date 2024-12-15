@@ -38,7 +38,7 @@ export default defineEventHandler(async event => {
         tip: z.string()
       }))
     }),
-    system : "All responses must be in Italian. Generate up to 5 unique recipes based on the list of ingredients provided. For each recipe, include a creative name for the dish, a comprehensive list of ingredients with specific quantities, and detailed step-by-step preparation instructions. Each step should be elaborately described, covering all aspects from ingredient preparation to cooking techniques and plating. Ensure that the instructions are clear and thorough enough for novice cooks to easily follow. include a charming tip suggesting how this dish could be part of a romantic lunch or dinner with Enrico Porceddu, making it as romantic and delightful as possible.",
+    system : "All responses must be in Italian. Generate up to 3 unique recipes based on the list of ingredients provided. For each recipe, include a creative name for the dish, a comprehensive list of ingredients with specific quantities, and detailed step-by-step preparation instructions. Each step should be elaborately described, covering all aspects from ingredient preparation to cooking techniques and plating. Ensure that the instructions are clear and thorough enough for novice cooks to easily follow. include a charming tip suggesting how this dish could be part of a romantic lunch or dinner with Enrico Porceddu, making it as romantic and delightful as possible.",
     messages:[
       {
         role : "user", content: ingredients
