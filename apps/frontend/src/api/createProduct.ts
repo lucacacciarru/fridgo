@@ -1,4 +1,4 @@
-import { ofetch } from 'ofetch';
+import { api } from './api';
 
 type CreateProductPayload = {
   name: string;
@@ -8,7 +8,7 @@ type CreateProductPayload = {
 export async function createProduct(
   products: CreateProductPayload
 ) {
-  return await ofetch('http://localhost:3000/products', {
+  return await api('/products', {
     method: 'POST',
     body: products,
     headers: {

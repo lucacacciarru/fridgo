@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from './ui/button';
 import {
   Drawer,
@@ -10,7 +12,7 @@ import {
 } from './ui/drawer';
 import { Input } from './ui/input';
 import { Product } from '@/types/product';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createProduct } from '@/api/createProduct';
 import { Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -25,16 +27,21 @@ export const ConfirmReceiptDrawer = ({
   setIsOpen,
 }: Props) => {
   const router = useRouter();
-  const productListStorage =
-    localStorage.getItem('products');
 
   const [productList, setProductList] = useState<
     Pick<Product, 'name' | 'quantity'>[]
-  >(
-    productListStorage
-      ? JSON.parse(productListStorage).products
-      : []
-  );
+  >([]);
+
+  useEffect(() => {
+    const productListStorage =
+      window.localStorage.getItem('products');
+
+    if (productListStorage) {
+      setProductList(
+        JSON.parse(productListStorage).products
+      );
+    }
+  }, []);
 
   async function handleSave() {
     await createProduct(productList);

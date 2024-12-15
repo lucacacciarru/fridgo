@@ -47,7 +47,7 @@ export const ProductDetailsDrawer = ({
   });
 
   const onSubmit = (data: FormData) => {
-    console.log('update');
+    console.log(data);
   };
 
   const handleDelete = async () => {
