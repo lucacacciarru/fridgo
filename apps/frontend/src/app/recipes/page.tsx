@@ -7,7 +7,7 @@ export default async function Page() {
   const { recipes } = await getRecipes();
 
   return (
-    <main className="min-h-screen bg-[#F0F0F0] p-8 font-serif">
+    <main className="min-h-screen bg-[#F0F0F0] p-4 md:p-4 font-serif">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-[#333333]">
           Ricette generate
