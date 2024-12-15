@@ -12,7 +12,7 @@ export default async function Page() {
   const { recipes } = await getRecipes();
 
   return (
-    <main className="min-h-screen bg-[#F0F0F0] p-8">
+    <main className="min-h-screen bg-[#F0F0F0] p-8 font-serif">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-[#333333]">
           Ricette generate
@@ -26,13 +26,17 @@ export default async function Page() {
                 <div className="flex gap-4">
                 
                   <Card>
-                    <CardContent className="p-4">
-                    <span className="text-md font-medium">Ingredienti:</span>
+                    <CardContent className="p-0">
+                    <span className="text-md font-medium p-4">Ingredienti:</span>
+                      <div className="p-4">
                       <ul className="list-disc">
                       {recipe.products.map((product, index) => (
                         <li key={index}>{product}</li>
                       ))}
                        </ul>
+                      </div>
+                    
+                      
                     </CardContent>
                   </Card>
 
@@ -48,8 +52,13 @@ export default async function Page() {
                   </Card>
                 </div>
 
-                <span className="text-md font-medium">Suggerimento:</span>
-                <p>{recipe.tip}</p>
+                <Card className="flex-grow">
+                    <CardContent className="p-4 bg-rose-300 border rounded-md">
+                    <span className="text-md font-medium">Suggerimento:</span>
+                    <p>{recipe.tip}</p>
+                    </CardContent>
+                  </Card>
+                
               </CardContent>
             </Card>
           ))}
