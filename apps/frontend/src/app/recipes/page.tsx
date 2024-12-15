@@ -23,7 +23,7 @@ export default async function Page() {
               <CardContent className="p-4 flex flex-col gap-4">
                 <span className="text-lg font-semibold">{recipe.name}</span>
 
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-4 md:flex-row">
                 
                   <Card>
                     <CardContent className="p-2">
