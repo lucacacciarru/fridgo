@@ -17,6 +17,8 @@ type Props = {
 export default function KitchenInventory({
   products,
 }: Props) {
+  const [isReceiptReady, setIsReceiptReady] =
+    useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDetailsDrawerOpen, setIsDetailsDrawerOpen] =
     useState(false);
@@ -64,16 +66,19 @@ export default function KitchenInventory({
         setIsConfirmReceiptDrawer={
           setIsConfirmReceiptDrawer
         }
+        setIsReceiptReady={setIsReceiptReady}
       />
       <ProductDetailsDrawer
         isOpen={isDetailsDrawerOpen}
         setIsOpen={setIsDetailsDrawerOpen}
         product={selectedProduct as Product}
       />
-      <ConfirmReceiptDrawer
-        isOpen={isConfirmReceiptDrawer}
-        setIsOpen={setIsConfirmReceiptDrawer}
-      />
+      {isReceiptReady && (
+        <ConfirmReceiptDrawer
+          isOpen={isConfirmReceiptDrawer}
+          setIsOpen={setIsConfirmReceiptDrawer}
+        />
+      )}
     </div>
   );
 }

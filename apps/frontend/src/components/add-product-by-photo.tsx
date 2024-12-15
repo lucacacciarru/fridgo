@@ -9,10 +9,12 @@ import Image from 'next/image';
 type Props = {
   setIsConfirmReceiptDrawer: (open: boolean) => void;
   setIsDrawerOpen: (open: boolean) => void;
+  setIsReceiptReady: (ready: boolean) => void;
 };
 export default function AddProductByPhoto({
   setIsConfirmReceiptDrawer,
   setIsDrawerOpen,
+  setIsReceiptReady,
 }: Props) {
   const [base64Image, setBase64Image] = useState<
     string | null
@@ -57,6 +59,7 @@ export default function AddProductByPhoto({
     localStorage.setItem('products', JSON.stringify(data));
     setIsDrawerOpen(false);
     setIsConfirmReceiptDrawer(true);
+    setIsReceiptReady(true);
   };
 
   return (
