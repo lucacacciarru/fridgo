@@ -1,16 +1,9 @@
 
+import type { Recipe } from '@/types/recipe';
 import { api } from './api';
 
-
-type Recipes = { 
-    name: string;
-    products: string[];
-    steps: string[];
-    tip: string
-}[]
-
 type GetRecipesResponse = {
-  recipes: Recipes[];
+  recipes: Recipe[];
 };
 
 export async function getRecipes() {
