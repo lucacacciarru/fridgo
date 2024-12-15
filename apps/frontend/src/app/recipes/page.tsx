@@ -1,9 +1,4 @@
-export type Recipe = {
-  name: string;
-  products: string[];
-  steps: string[];
-  tip: string;
-};
+
 
 import { getRecipes } from "@/api/getRecipes";
 import { Card, CardContent } from "@/components/ui/card";
